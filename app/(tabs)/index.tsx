@@ -1,31 +1,37 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View } from "@/components/Themed";
+import { useLocalVideoStore } from "@/store/asyncVideoStore";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+export default function index() {
+  const { videos, deleteAll } = useLocalVideoStore();
+  console.log(videos);
 
-export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View>
+      <Text>All videos</Text>
+      {videos.map((video) => (
+        <View key={video.name}>
+          <Text>{video.name}</Text>
+        </View>
+      ))}
+      <TouchableOpacity style={styles.button} onPress={deleteAll}>
+        <Text style={styles.buttonText}>Delete All</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  button: {
+    backgroundColor: "#007aff",
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 10,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "600",
   },
 });

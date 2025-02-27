@@ -14,13 +14,17 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.video-diary"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -28,7 +32,33 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+<<<<<<< Updated upstream
       "expo-router"
+=======
+      "expo-router",
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "@config-plugins/ffmpeg-kit-react-native",
+        {
+          "package": "min",
+          "ios": {
+            "package": "video"
+          }
+        }
+      ]
+>>>>>>> Stashed changes
     ],
     "experiments": {
       "typedRoutes": true

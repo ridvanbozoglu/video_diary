@@ -21,18 +21,28 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+<<<<<<< Updated upstream
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
+=======
+        tabBarStyle: { display: "none" },
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+>>>>>>> Stashed changes
         headerShown: useClientOnlyValue(false, true),
       }}>
       <Tabs.Screen
         name="index"
         options={{
+<<<<<<< Updated upstream
           title: 'Tab One',
+=======
+          title: "Home",
+
+>>>>>>> Stashed changes
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/(modals)/videoSelectionScreen" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
@@ -47,6 +57,7 @@ export default function TabLayout() {
           ),
         }}
       />
+<<<<<<< Updated upstream
       <Tabs.Screen
         name="two"
         options={{
@@ -54,6 +65,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
+=======
+>>>>>>> Stashed changes
     </Tabs>
   );
 }
