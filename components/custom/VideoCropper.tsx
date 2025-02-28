@@ -61,7 +61,6 @@ const VideoCropper = () => {
       console.log("içeride");
       console.log(player.currentTime);
     }, 1000);
-    // 1000 i 100 yap daha net bir loop için
     return () => clearInterval(interval);
   }, [start, end, player.currentTime]);
 

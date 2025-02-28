@@ -7,7 +7,8 @@ export default function ModalLayout() {
   const { resetVideo } = useVideoStore();
 
   const handleModalClose = useCallback(() => {
-    //resetVideo();
+    console.log("Çıktı");
+    resetVideo();
   }, []);
 
   useFocusEffect(
