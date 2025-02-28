@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  SafeAreaView,
-} from "react-native";
+import { View, TextInput, Text, SafeAreaView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,10 +7,12 @@ import useVideoStore from "@/store/videoStore";
 import { useRouter } from "expo-router";
 import { useLocalVideoStore } from "@/store/asyncVideoStore";
 import { usePostPost } from "@/hooks/useImageProcess";
+import CustomButton from "@/components/custom/CustomButton";
+import CustomTextInput from "@/components/custom/CustomTextInput";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
-  description: z.string().min(1, "Description is required"),
+  description: z.string().min(6, "Description is required"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -48,118 +43,59 @@ const CropImageScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Crop Image</Text>
-        <Controller
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
-              placeholder="Enter image name"
-              placeholderTextColor="#999"
-              onBlur={onBlur}
-              onChangeText={(text) => {
-                onChange(text);
-              }}
-              value={value}
-            />
+    <SafeAreaView className="flex-1 bg-gray-100">
+      <View className="flex-1 p-5 mx-4 mt-5 mb-8">
+        <Text className="text-3xl font-bold mb-8 text-center text-gray-800">
+          Meta Data
+        </Text>
+        <View>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomTextInput
+                placeholder="Video name"
+                value={value}
+                onChangeText={(text) => {
+                  onChange(text);
+                }}
+                onBlur={onBlur}
+              />
+            )}
+            name="name"
+          />
+          {errors.name && (
+            <Text className="text-red-600 mb-3 text-sm ml-1">
+              {errors.name.message}
+            </Text>
           )}
-          name="name"
-        />
-        {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
+        </View>
 
-        <Controller
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.textArea}
-              placeholder="Enter image description"
-              placeholderTextColor="#999"
-              onBlur={onBlur}
-              onChangeText={(text) => {
-                onChange(text);
-              }}
-              value={value}
-              multiline
-              numberOfLines={4}
-            />
+        <View>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomTextInput
+                placeholder="Video description"
+                value={value}
+                onChangeText={(text) => {
+                  onChange(text);
+                }}
+                onBlur={onBlur}
+              />
+            )}
+            name="description"
+          />
+          {errors.description && (
+            <Text className="text-red-600 text-sm ml-1">
+              {errors.description.message}
+            </Text>
           )}
-          name="description"
-        />
-        {errors.description && (
-          <Text style={styles.error}>{errors.description.message}</Text>
-        )}
+        </View>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleSubmit(onSubmit)}
-        >
-          <Text style={styles.buttonText}>Crop Image</Text>
-        </TouchableOpacity>
+        <CustomButton title="Videoyu kaydet" onPress={handleSubmit(onSubmit)} />
       </View>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    flex: 1,
-    padding: 20,
-    marginHorizontal: 16,
-    marginTop: 20,
-    marginBottom: 30,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 30,
-    color: "#333",
-    textAlign: "center",
-  },
-  input: {
-    height: 50,
-    borderColor: "#ddd",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 20,
-    paddingHorizontal: 12,
-    fontSize: 16,
-    backgroundColor: "#fff",
-  },
-  textArea: {
-    height: 120,
-    borderColor: "#ddd",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 20,
-    paddingHorizontal: 12,
-    paddingTop: 12,
-    fontSize: 16,
-    backgroundColor: "#fff",
-  },
-  error: {
-    color: "#ff3b30",
-    marginBottom: 15,
-    fontSize: 14,
-    marginLeft: 4,
-  },
-  button: {
-    backgroundColor: "#007aff",
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "600",
-  },
-});
 
 export default CropImageScreen;

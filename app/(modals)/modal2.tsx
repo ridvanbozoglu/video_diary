@@ -1,12 +1,15 @@
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { Text, View } from "@/components/Themed";
-import VideoCropper from "@/components/VideoCropper";
+import VideoCropper from "@/components/custom/VideoCropper";
 import { useState } from "react";
+import CustomButton from "@/components/custom/CustomButton";
+import useVideoStore from "@/store/videoStore";
 
 export default function ModalScreen() {
   const router = useRouter();
   const [isCropperVisible, setIsCropperVisible] = useState(true);
+  const uri = useVideoStore((state) => state.video.uri);
 
   const navigateToNextScreen = () => {
     router.push("/modal3");
@@ -14,34 +17,15 @@ export default function ModalScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Crop the Video</Text>
+    <View className="flex-1 pb-3 items-center justify-between py-4">
+      <Text className="text-2xl font-bold">Crop the Video</Text>
       {isCropperVisible && <VideoCropper />}
-      <Pressable onPress={navigateToNextScreen} style={styles.button}>
-        <Text style={styles.buttonText}>Crop</Text>
-      </Pressable>
+
+      <CustomButton
+        title="Videoyu kırp"
+        onPress={navigateToNextScreen}
+        style="self-auto py-3 px-4 mb-"
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  button: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: "#007BFF",
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontWeight: "bold",
-  },
-});

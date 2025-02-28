@@ -1,15 +1,14 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import React from "react";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Link, Stack, Tabs } from "expo-router";
+import { Pressable } from "react-native";
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import Colors from "@/constants/Colors";
+import { useColorScheme } from "@/components/useColorScheme";
+import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+  name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
@@ -19,36 +18,20 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-<<<<<<< Updated upstream
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-=======
-        tabBarStyle: { display: "none" },
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
->>>>>>> Stashed changes
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
+    <Stack>
+      <Stack.Screen
         name="index"
         options={{
-<<<<<<< Updated upstream
-          title: 'Tab One',
-=======
           title: "Home",
-
->>>>>>> Stashed changes
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerShown: true,
           headerRight: () => (
             <Link href="/(modals)/videoSelectionScreen" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
+                    name="video-camera"
                     size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
+                    color={Colors[colorScheme ?? "light"].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}
@@ -57,16 +40,7 @@ export default function TabLayout() {
           ),
         }}
       />
-<<<<<<< Updated upstream
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-=======
->>>>>>> Stashed changes
-    </Tabs>
+      <Stack.Screen name="[id]" options={{ title: "Post Details" }} />
+    </Stack>
   );
 }

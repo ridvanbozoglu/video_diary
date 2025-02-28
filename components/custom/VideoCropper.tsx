@@ -1,11 +1,11 @@
 import { useState, useCallback, useEffect } from "react";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { StyleSheet, View, Button, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import RangeSlider from "rn-range-slider";
-import Thumb from "./rangePickerComponents/Thumb";
-import Rail from "./rangePickerComponents/Rail";
-import RailSelected from "./rangePickerComponents/RailSelected";
-import Notch from "./rangePickerComponents/Notch";
+import Thumb from "../rangePickerComponents/Thumb";
+import Rail from "../rangePickerComponents/Rail";
+import RailSelected from "../rangePickerComponents/RailSelected";
+import Notch from "../rangePickerComponents/Notch";
 import { formatTime } from "@/utils/conversions";
 import useVideoStore from "@/store/videoStore";
 
@@ -38,6 +38,7 @@ const VideoCropper = () => {
     []
   );
   const renderNotch = useCallback(() => <Notch />, []);
+
   const handleValueChange = useCallback(
     (low: number, high: number) => {
       const duration = Math.round(player.duration) || 0;
@@ -58,7 +59,9 @@ const VideoCropper = () => {
         player.currentTime = start;
       }
       console.log("içeride");
+      console.log(player.currentTime);
     }, 1000);
+    // 1000 i 100 yap daha net bir loop için
     return () => clearInterval(interval);
   }, [start, end, player.currentTime]);
 
@@ -67,24 +70,17 @@ const VideoCropper = () => {
   }, [player.duration]);
 
   return (
-    <View style={styles.contentContainer}>
+    <View className="w-full p-2 items-center justify-between px-12 ">
       <View>
         <VideoView
-          style={styles.video}
+          style={{ width: width, height: 275 }}
           player={player}
           nativeControls={false}
           allowsFullscreen
           allowsPictureInPicture
         />
       </View>
-      <View
-        style={{
-          width: width * 0.9,
-          height: 40,
-          alignSelf: "center",
-          marginVertical: 30,
-        }}
-      >
+      <View className="w-full self-center my-8 ">
         <RangeSlider
           min={0}
           max={duration}
@@ -102,22 +98,5 @@ const VideoCropper = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  contentContainer: {
-    flex: 1,
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 50,
-  },
-  video: {
-    width: 350,
-    height: 275,
-  },
-  controlsContainer: {
-    padding: 10,
-  },
-});
 
 export default VideoCropper;

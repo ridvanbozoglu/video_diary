@@ -23,8 +23,10 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
+        "android.permission.RECORD_AUDIO",
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.anonymous.videodiary"
     },
     "web": {
       "bundler": "metro",
@@ -32,9 +34,6 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-<<<<<<< Updated upstream
-      "expo-router"
-=======
       "expo-router",
       [
         "expo-video",
@@ -48,17 +47,7 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
-      ],
-      [
-        "@config-plugins/ffmpeg-kit-react-native",
-        {
-          "package": "min",
-          "ios": {
-            "package": "video"
-          }
-        }
       ]
->>>>>>> Stashed changes
     ],
     "experiments": {
       "typedRoutes": true

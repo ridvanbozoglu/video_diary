@@ -4,6 +4,7 @@ import { View, Button, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import useVideoStore from "@/store/videoStore";
+import CustomButton from "@/components/custom/CustomButton";
 
 export default function VideoSelectionScreen() {
   const router = useRouter();
@@ -25,8 +26,13 @@ export default function VideoSelectionScreen() {
   };
 
   return (
-    <View>
-      <Button title="Videoyu Seç" onPress={onVideoSelected} />
+    <View className="flex-1 items-center justify-center bg-gray-100">
+      <CustomButton
+        title="Galeriden Seç"
+        onPress={onVideoSelected}
+        backgroundColor="none"
+        textColor="#007AFF"
+      />
     </View>
   );
 }
